@@ -1,1 +1,1 @@
-worker: hypnotoad -f ./aprs_slurp.pl
+worker: perl ./aprs_slurp.pl
