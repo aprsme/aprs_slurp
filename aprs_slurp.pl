@@ -6,8 +6,14 @@ use strict;
 use warnings;
 use POSIX;
 use Net::AMQP::RabbitMQ;
+use Data::Printer;
 
 my $mq = Net::AMQP::RabbitMQ->new();
+p $ENV{'RABBITMQ_HOST'}
+p $ENV{'RABBITMQ_USER'}
+p $ENV{'RABBITMQ_PASSWORD'}
+p $ENV{'RABBITMQ_VHOST'} });
+
 $mq->connect($ENV{'RABBITMQ_HOST'}, { user => $ENV{'RABBITMQ_USER'}, password => $ENV{'RABBITMQ_PASSWORD'}, vhost => $ENV{'RABBITMQ_VHOST'} });
 $mq->connect();
 
