@@ -8,7 +8,7 @@ use POSIX;
 use Net::AMQP::RabbitMQ;
 
 my $mq = Net::AMQP::RabbitMQ->new();
-$mq->connect($ENV{'RABBITMQ_HOST'}, { user => $ENV{'RABBITMQ_USER'}, password => $ENV{'RABBITMQ_PASSWORD'} });
+$mq->connect($ENV{'RABBITMQ_HOST'}, { user => $ENV{'RABBITMQ_USER'}, password => $ENV{'RABBITMQ_PASSWORD'}, path => $ENV{'RABBITMQ_PATH'} });
 $mq->connect();
 
 my $json = JSON->new->allow_nonref;
