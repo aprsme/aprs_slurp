@@ -5,11 +5,11 @@ use JSON;
 use strict;
 use warnings;
 use POSIX;
-use Data::Printer;
 use Net::AMQP::RabbitMQ;
 
 my $mq = Net::AMQP::RabbitMQ->new();
-$mq->connect("localhost", { user => "guest", password => "guest" });
+#$mq->connect("localhost", { user => "guest", password => "guest" });
+$mq->connect($ENV{'RABBITMQ_URL'});
 
 my $json = JSON->new->allow_nonref;
 
@@ -35,12 +35,8 @@ until (0)
 
   if ($retval == 1)
   {
-      #p %packetdata;
       $jsonpacket = $json->encode(\%packetdata);
-      #p $jsonpacket;
-
       my $publish_key = "aprs." . $packetdata{srccallsign};
-
       $mq->publish(1, $publish_key, $jsonpacket, { exchange => $exchange });
    }
    else
@@ -49,7 +45,6 @@ until (0)
        warn "Parsing failed: $packetdata{resultmsg} ($packetdata{resultcode})\n";
      }
    }
-
 }
 
 $mq->disconnect();
