@@ -1,1 +1,1 @@
-worker: ./aprs_slurp.pl
+worker: carton exec aprs_slurp.pl
