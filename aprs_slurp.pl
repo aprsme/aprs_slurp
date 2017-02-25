@@ -8,12 +8,12 @@ use POSIX;
 use Net::AMQP::RabbitMQ;
 
 my $mq = Net::AMQP::RabbitMQ->new();
-#$mq->connect("localhost", { user => "guest", password => "guest" });
-$mq->connect($ENV{'RABBITMQ_URL'});
+$mq->connect($ENV{'RABBITMQ_HOST'}, { user => $ENV{'RABBITMQ_USER'}, password => $ENV{'RABBITMQ_PASSWORD'} });
+$mq->connect();
 
 my $json = JSON->new->allow_nonref;
 
-my $is = new Ham::APRS::IS('rotate.aprs.net:10152', 'W5ISP-13', 'appid' => 'aprs.bz 0.0.1');
+my $is = new Ham::APRS::IS('rotate.aprs.net:10152', 'W5ISP-13', 'appid' => 'aprs.me 0.0.1');
 $is->connect('retryuntil' => 3) || die "Failed to connect: $is->{error}";
 
 my $channel = 1;
