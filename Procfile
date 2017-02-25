@@ -1,1 +1,1 @@
-worker: perl ./aprs_slurp.pl
+worker: ./aprs_slurp.pl
