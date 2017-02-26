@@ -10,20 +10,20 @@ use Data::Printer;
 
 my $mq = Net::AMQP::RabbitMQ->new();
 
-$mq->connect($ENV{'RABBITMQ_HOST'}, { user => $ENV{'RABBITMQ_USER'}, password => $ENV{'RABBITMQ_PASSWORD'}, vhost => $ENV{'RABBITMQ_VHOST'} });
+$mq->connect($ENV{'RABBITMQ_HOST'}, { user => $ENV{'RABBITMQ_USER'}, password => $ENV{'RABBITMQ_PASSWORD'}, vhost => $ENV{'RABBITMQ_VHOST'}, port => $ENV{'RABBITMQ_PORT'} });
 
 my $json = JSON->new->allow_nonref;
 
 my $is = new Ham::APRS::IS('rotate.aprs.net:10152', 'W5ISP-13', 'appid' => 'aprs.me 0.0.1');
 $is->connect('retryuntil' => 3) || die "Failed to connect: $is->{error}";
 
-my $messages_channel = 1;
-my $archive_channel = 1;
+my $channel = 1;
 
-$mq->channel_open($messages_channel);
-$mq->channel_open($archive_channel);
-$mq->exchange_declare($messages_channel, "aprs:messages", {exchange_type => 'topic'});
-$mq->exchange_declare($archive_channel, "aprs:archive", {exchange_type => 'direct', durable => 1});
+$mq->channel_open($channel);
+$mq->exchange_declare($channel, "aprs:messages", {exchange_type => 'topic'});
+$mq->exchange_declare($channel, "aprs:archive", {exchange_type => 'direct', durable => 1});
+$mq->queue_declare($channel, "aprs:archive", {durable => 1, auto_delete => 0});
+$mq->queue_bind($channel, "aprs:archive", "aprs:archive", 1, {});
 
 until (0)
 {
@@ -40,8 +40,8 @@ until (0)
   {
       $jsonpacket = $json->encode(\%packetdata);
       my $publish_key = "aprs." . $packetdata{srccallsign};
-      $mq->publish($messages_channel, $publish_key, $jsonpacket, { exchange => "aprs:messages" });
-      $mq->publish($archive_channel, $publish_key, $jsonpacket, { exchange => "aprs:archive", persistent => 1});
+      $mq->publish($channel, $publish_key, $jsonpacket, { exchange => "aprs:messages" });
+      $mq->publish($channel, $publish_key, $jsonpacket, { exchange => "aprs:archive", persistent => 1});
    }
    else
    {
