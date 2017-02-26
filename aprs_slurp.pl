@@ -21,7 +21,6 @@ my $channel = 1;
 
 $mq->channel_open($channel);
 $mq->exchange_declare($channel, "aprs:messages", {exchange_type => 'topic'});
-#$mq->exchange_declare($channel, "aprs:archive", {exchange_type => 'direct', durable => 1});
 $mq->queue_declare($channel, "aprs:archive", {durable => 1, auto_delete => 0});
 $mq->queue_bind($channel, "aprs:archive", "aprs:messages", '#', {});
 
@@ -41,7 +40,6 @@ until (0)
       $jsonpacket = $json->encode(\%packetdata);
       my $publish_key = "aprs." . $packetdata{srccallsign};
       $mq->publish($channel, $publish_key, $jsonpacket, { exchange => "aprs:messages", persistent => 1});
-      #$mq->publish($channel, $publish_key, $jsonpacket, { exchange => "aprs:archive", persistent => 1});
    }
    else
    {
