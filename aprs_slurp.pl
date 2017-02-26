@@ -39,7 +39,7 @@ until (0)
       $jsonpacket = $json->encode(\%packetdata);
       my $publish_key = "aprs." . $packetdata{srccallsign};
       $mq->publish(1, $publish_key, $jsonpacket, { exchange => "aprs:messages" });
-      $mq->publish(1, $publish_key, $jsonpacket, { exchange => "aprs:archive" });
+      $mq->publish(1, $publish_key, $jsonpacket, { exchange => "aprs:archive", persistent => 1});
    }
    else
    {
