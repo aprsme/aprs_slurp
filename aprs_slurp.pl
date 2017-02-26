@@ -21,7 +21,7 @@ my $channel = 1;
 
 $mq->channel_open($channel);
 $mq->exchange_declare($channel, "aprs:messages", {exchange_type => 'topic'});
-$mq->exchange_declare($channel, "aprs:archive", {exchange_type => 'direct', durable => true});
+$mq->exchange_declare($channel, "aprs:archive", {exchange_type => 'direct', durable => 1});
 
 until (0)
 {
