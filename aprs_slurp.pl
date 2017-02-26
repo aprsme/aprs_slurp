@@ -18,10 +18,10 @@ my $is = new Ham::APRS::IS('rotate.aprs.net:10152', 'W5ISP-13', 'appid' => 'aprs
 $is->connect('retryuntil' => 3) || die "Failed to connect: $is->{error}";
 
 my $channel = 1;
-my $exchange = "aprs:messages";
 
 $mq->channel_open($channel);
-$mq->exchange_declare($channel, $exchange, {exchange_type => 'topic'});
+$mq->exchange_declare($channel, "aprs:messages", {exchange_type => 'topic'});
+$mq->exchange_declare($channel, "aprs:archive", {exchange_type => 'direct', durable => true});
 
 until (0)
 {
