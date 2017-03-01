@@ -7,13 +7,15 @@ use warnings;
 use POSIX;
 use Net::AMQP::RabbitMQ;
 use Data::Printer;
+use utf8;
+use Encode qw( encode_utf8 );
 
 my $mq = Net::AMQP::RabbitMQ->new();
 
 my $rabbitmq_host = $ENV{'RABBITMQ_HOST'} || "localhost";
 my $rabbitmq_user = $ENV{'RABBITMQ_USER'} || "guest";
 my $rabbitmq_password = $ENV{'RABBITMQ_PASSWORD'} || "guest";
-my $rabbitmq_vhost = $ENV{'RABBITMQ_VHOST'} || "/";
+my $rabbitmq_vhost = $ENV{'RABBITMQ_VHOST'} || "aprs";
 my $rabbitmq_port = $ENV{'RABBITMQ_PORT'} || 5672;
 $mq->connect($rabbitmq_host, { user => $rabbitmq_user, password => $rabbitmq_password, vhost => $rabbitmq_vhost, port => $rabbitmq_port });
 
@@ -44,7 +46,7 @@ until (0)
   {
       $jsonpacket = $json->encode(\%packetdata);
       my $publish_key = "aprs." . $packetdata{srccallsign};
-      $mq->publish($channel, $publish_key, $jsonpacket, { exchange => "aprs:messages", persistent => 1});
+      $mq->publish($channel, $publish_key, encode_utf8($jsonpacket), { exchange => "aprs:messages", persistent => 1});
    }
    else
    {
