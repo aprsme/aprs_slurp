@@ -10,7 +10,12 @@ use Data::Printer;
 
 my $mq = Net::AMQP::RabbitMQ->new();
 
-$mq->connect($ENV{'RABBITMQ_HOST'}, { user => $ENV{'RABBITMQ_USER'}, password => $ENV{'RABBITMQ_PASSWORD'}, vhost => $ENV{'RABBITMQ_VHOST'}, port => $ENV{'RABBITMQ_PORT'} });
+my $rabbitmq_host = $ENV{'RABBITMQ_HOST'} || "localhost";
+my $rabbitmq_user = $ENV{'RABBITMQ_USER'} || "guest";
+my $rabbitmq_password = $ENV{'RABBITMQ_PASSWORD'} || "guest";
+my $rabbitmq_vhost = $ENV{'RABBITMQ_VHOST'} || "/";
+my $rabbitmq_port = $ENV{'RABBITMQ_PORT'} || 5672;
+$mq->connect($rabbitmq_host, { user => $rabbitmq_user, password => $rabbitmq_password, vhost => $rabbitmq_vhost, port => $rabbitmq_port });
 
 my $json = JSON->new->allow_nonref;
 
