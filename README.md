@@ -12,5 +12,4 @@
 
     $ carton exec ./aprs_slurp.pl
 
-## Pofit!
-
+## Profit!
