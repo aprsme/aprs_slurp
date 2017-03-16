@@ -36,10 +36,10 @@ $mq->queue_bind($channel, "aprs:archive", "aprs:messages", '#', {});
 
 until (0)
 {
-  warn "loop";
   my $l = $is->getline_noncomment();
   next if (!defined $l);
   print "\n[new packet]\n$l\n";
+  warn $is->{state};
 
   my %packetdata;
   my $retval = parseaprs($l, \%packetdata);
