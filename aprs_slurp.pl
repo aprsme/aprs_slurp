@@ -21,7 +21,7 @@ $mq->connect($rabbitmq_host, { user => $rabbitmq_user, password => $rabbitmq_pas
 
 my $json = JSON->new->allow_nonref;
 
-my $aprs_server = $ENV{'APRS_SERVER'} || "rotate.aprs.net:10152";
+my $aprs_server = $ENV{'APRS_SERVER'} || "204.110.191.245:10152";
 my $is = new Ham::APRS::IS($aprs_server, 'W5ISP-13', 'appid' => 'aprs.me 0.0.1');
 $is->connect('retryuntil' => 3) || die "Failed to connect: $is->{error}";
 
