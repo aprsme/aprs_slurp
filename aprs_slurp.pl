@@ -9,6 +9,10 @@ use Net::AMQP::RabbitMQ;
 use Data::Printer;
 use utf8;
 use Encode qw( encode_utf8 );
+use Net::Statsd;
+
+$Net::Statsd::HOST = $ENV{'STATSD_HOST'} || "localhost";
+$Net::Statsd::PORT = $ENV{'STATSD_PORT'} || 8125;
 
 my $mq = Net::AMQP::RabbitMQ->new();
 
@@ -38,6 +42,7 @@ until (0)
 {
   my $l = $is->getline_noncomment(1);
   if (!defined $l) {
+    Net::Statsd::increment('aprs.injest.connectionlost');
     print "\n[no connection, reconnecting]\n";
     $is->disconnect();
     $is->connect('retryuntil' => 100);
@@ -52,6 +57,7 @@ until (0)
 
   if ($retval == 1)
   {
+      Net::Statsd::increment('aprs.injest.packets.valid');
       $jsonpacket = $json->encode(\%packetdata);
       my $publish_key = "aprs." . $packetdata{srccallsign};
       $mq->publish($channel, $publish_key, encode_utf8($jsonpacket), { exchange => "aprs:messages", persistent => 1});
@@ -59,6 +65,7 @@ until (0)
    else
    {
      if (exists($packetdata{resultmsg})) {
+       Net::Statsd::increment('aprs.injest.packets.invalid');
        warn "Parsing failed: $packetdata{resultmsg} ($packetdata{resultcode})\n";
      }
    }

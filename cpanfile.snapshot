@@ -218,6 +218,13 @@ DISTRIBUTIONS
       Math::Int64 0.34
       Scalar::Util 0
       XSLoader 0
+  Net-Statsd-0.12
+    pathname: C/CO/COSIMO/Net-Statsd-0.12.tar.gz
+    provides:
+      Net::Statsd 0.12
+    requirements:
+      ExtUtils::MakeMaker 6.30
+      IO::Socket 0
   Package-Stash-0.37
     pathname: D/DO/DOY/Package-Stash-0.37.tar.gz
     provides:
