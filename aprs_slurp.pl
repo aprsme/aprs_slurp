@@ -43,7 +43,6 @@ until (0)
     $is->connect('retryuntil' => 100);
     next;
   }
-  print "\n[new packet]\n$l\n";
 
   my %packetdata;
   my $retval = parseaprs($l, \%packetdata);
