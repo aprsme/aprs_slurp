@@ -36,10 +36,14 @@ $mq->queue_bind($channel, "aprs:archive", "aprs:messages", '#', {});
 
 until (0)
 {
-  my $l = $is->getline_noncomment();
-  next if (!defined $l);
+  my $l = $is->getline_noncomment(1);
+  if (!defined $l) {
+    print "\n[no connection, reconnecting]\n";
+    $is->disconnect();
+    $is->connect('retryuntil' => 100);
+    next;
+  }
   print "\n[new packet]\n$l\n";
-  warn $is->{state};
 
   my %packetdata;
   my $retval = parseaprs($l, \%packetdata);
