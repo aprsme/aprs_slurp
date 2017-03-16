@@ -22,8 +22,10 @@ $mq->connect($rabbitmq_host, { user => $rabbitmq_user, password => $rabbitmq_pas
 my $json = JSON->new->allow_nonref;
 
 my $aprs_server = $ENV{'APRS_SERVER'} || "204.110.191.245:10152";
-my $is = new Ham::APRS::IS($aprs_server, 'W5ISP-13', 'appid' => 'aprs.me 0.0.1');
+my $is = new Ham::APRS::IS($aprs_server, 'W5ISP-13', 'appid' => 'aprs.me 0.1.0');
 $is->connect('retryuntil' => 3) || die "Failed to connect: $is->{error}";
+
+p $is->{error};
 
 my $channel = 1;
 
@@ -34,8 +36,10 @@ $mq->queue_bind($channel, "aprs:archive", "aprs:messages", '#', {});
 
 until (0)
 {
+  warn "loop";
   my $l = $is->getline_noncomment();
   next if (!defined $l);
+  print "\n[new packet]\n$l\n";
 
   my %packetdata;
   my $retval = parseaprs($l, \%packetdata);
