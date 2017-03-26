@@ -144,10 +144,10 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.006
-  Ham-APRS-FAP-1.20
-    pathname: H/HE/HESSU/Ham-APRS-FAP-1.20.tar.gz
+  Ham-APRS-FAP-1.21
+    pathname: H/HE/HESSU/Ham-APRS-FAP-1.21.tar.gz
     provides:
-      Ham::APRS::FAP 1.20
+      Ham::APRS::FAP 1.21
       Ham::APRS::IS 1.18
     requirements:
       Date::Calc 5.00
