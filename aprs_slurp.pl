@@ -6,7 +6,6 @@ use strict;
 use warnings;
 use POSIX;
 use Net::AMQP::RabbitMQ;
-use Data::Printer;
 use utf8;
 use Encode qw( encode_utf8 );
 #use Net::Statsd;
