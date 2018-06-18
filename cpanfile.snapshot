@@ -218,7 +218,7 @@ DISTRIBUTIONS
       File::Spec 0.82
       File::Temp 0.15
       Getopt::Long 0
-      Module::Metadata 1.000002
+      Module::Metadata 1.000001
       Parse::CPAN::Meta 1.4401
       Perl::OSType 1
       Pod::Man 2.17
