@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 use Ham::APRS::IS;
 use Ham::APRS::FAP qw(parseaprs);
 use JSON;
