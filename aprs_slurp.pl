@@ -16,19 +16,28 @@ use Encode qw( encode_utf8 );
 my $mq = Net::AMQP::RabbitMQ->new();
 
 my $rabbitmq_host = $ENV{'RABBITMQ_HOST'} || "localhost";
-my $rabbitmq_user = $ENV{'RABBITMQ_USER'} || "guest";
+my $rabbitmq_user = $ENV{'RABBITMQ_USERNAME'} || "guest";
 my $rabbitmq_password = $ENV{'RABBITMQ_PASSWORD'} || "guest";
 my $rabbitmq_vhost = $ENV{'RABBITMQ_VHOST'} || "aprs";
 my $rabbitmq_port = $ENV{'RABBITMQ_PORT'} || 5672;
+
+my $aprs_username = $ENV{'APRS_USERNAME'} || die "Set APRS_USERNAME to URCALL-SSID";
+
+warn "About to connect to RabbitMQ at $rabbitmq_host:$rabbitmq_port\n";
+
 $mq->connect($rabbitmq_host, { user => $rabbitmq_user, password => $rabbitmq_password, vhost => $rabbitmq_vhost, port => $rabbitmq_port });
 
+warn "Connected to RabbitMQ";
 my $json = JSON->new->allow_nonref;
 
 my $aprs_server = $ENV{'APRS_SERVER'} || "204.110.191.245:10152";
-my $is = new Ham::APRS::IS($aprs_server, 'W5ISP-13', 'appid' => 'aprs.me 0.1.0');
+
+warn "About to connect to APRS-IS server $aprs_server as $aprs_username";
+
+my $is = new Ham::APRS::IS($aprs_server, $aprs_username, 'appid' => 'aprs.me 0.1.0');
 $is->connect('retryuntil' => 3) || die "Failed to connect: $is->{error}";
 
-p $is->{error};
+#p $is->{error};
 
 my $channel = 1;
 
