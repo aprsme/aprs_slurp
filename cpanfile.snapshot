@@ -10,13 +10,6 @@ DISTRIBUTIONS
       Carp::Clan 5.3
       ExtUtils::MakeMaker 0
       Storable 2.21
-  Carp-Clan-6.06
-    pathname: K/KE/KENTNL/Carp-Clan-6.06.tar.gz
-    provides:
-      Carp::Clan 6.06
-    requirements:
-      ExtUtils::MakeMaker 0
-      Test::Exception 0
   Date-Calc-6.4
     pathname: S/ST/STBEY/Date-Calc-6.4.tar.gz
     provides:
@@ -40,14 +33,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Math::Trig 1.00
       Test::More 0.1
-  JSON-2.97001
-    pathname: I/IS/ISHIGAKI/JSON-2.97001.tar.gz
-    provides:
-      JSON 2.97001
-      JSON::Backend::PP 2.97001
-    requirements:
-      ExtUtils::MakeMaker 0
-      Test::More 0
   Math-Int64-0.54
     pathname: S/SA/SALVA/Math-Int64-0.54.tar.gz
     provides:
@@ -74,30 +59,3 @@ DISTRIBUTIONS
       Math::Int64 0.34
       Scalar::Util 0
       XSLoader 0
-  Sub-Uplevel-0.2600
-    pathname: D/DA/DAGOLDEN/Sub-Uplevel-0.2600.tar.gz
-    provides:
-      Sub::Uplevel 0.2600
-    requirements:
-      Carp 0
-      ExtUtils::MakeMaker 6.17
-      constant 0
-      perl 5.006
-      strict 0
-      warnings 0
-  Test-Exception-0.43
-    pathname: E/EX/EXODIST/Test-Exception-0.43.tar.gz
-    provides:
-      Test::Exception 0.43
-    requirements:
-      Carp 0
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      Sub::Uplevel 0.18
-      Test::Builder 0.7
-      Test::Builder::Tester 1.07
-      Test::Harness 2.03
-      base 0
-      perl 5.006001
-      strict 0
-      warnings 0
