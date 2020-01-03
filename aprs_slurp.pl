@@ -78,7 +78,7 @@ until(0)
       {
         if (exists($packetdata{resultmsg})) {
           #Net::Statsd::increment('aprs.ingest.packets.invalid');
-          warn "Parsing failed: $packetdata{resultmsg} ($packetdata{resultcode})\n";
+          #warn "Parsing failed: $packetdata{resultmsg} ($packetdata{resultcode})\n";
         }
       }
     }
