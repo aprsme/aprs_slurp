@@ -30,4 +30,3 @@ services:
       - RABBITMQ_HOST=rabbitmq
     networks:
       - app-tier
-
