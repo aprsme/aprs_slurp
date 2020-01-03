@@ -19,7 +19,7 @@ services:
     restart: always
     depends_on:
       - 'rabbitmq'
-    image: 'tcollen/aprs_slurp:latest'
+    image: 'aprsme/aprs_slurp:latest'
     environment:
       - APRS_USERNAME=W5ISP-13
       - APRS_SERVER=g.vntx.net:10152
