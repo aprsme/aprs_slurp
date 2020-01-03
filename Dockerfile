@@ -24,4 +24,4 @@ COPY --from=builder /app/ /app/
 
 WORKDIR /app
 
-CMD /app/wait-for-it.sh rabbitmq:5672 -- ./aprs_slurp.pl
+CMD ./aprs_slurp.pl
