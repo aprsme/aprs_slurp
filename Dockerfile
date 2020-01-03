@@ -12,6 +12,7 @@ RUN cd /app && pdi-build-deps
 
 ### Copy the rest of the application to the app folder
 COPY . /app/
+COPY wait-for-it.sh /app/
 
 ### Now for the fourth and final stage, the runtime edition. We start from the
 ### runtime version and add all the files from the build phase
