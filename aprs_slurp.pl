@@ -47,8 +47,8 @@ until(0)
 
     $mq->channel_open($channel);
     $mq->exchange_declare($channel, "aprs:messages", {exchange_type => 'topic'});
-    $mq->queue_declare($channel, "aprs:messages", {durable => 1, auto_delete => 0, arguments => {'x-message-ttl' => 60000}});
-    $mq->queue_bind($channel, "aprs:messages", "aprs:messages", '#', {});
+    $mq->queue_declare($channel, "aprs:archive", {durable => 1, auto_delete => 0, arguments => {'x-message-ttl' => 60000}});
+    $mq->queue_bind($channel, "aprs:archive", "aprs:messages", '#', {});
 
     until (0)
     {
